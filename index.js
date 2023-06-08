@@ -1,6 +1,6 @@
 const inquirer = require('inquirer')
 const mysql = require('mysql2')
-
+const consoleTable = require('console.table')
 
 const db = mysql.createConnection(
     {
@@ -58,6 +58,17 @@ function init() {
                 exit();
         }
     });
+}
+
+let viewAllDepartments = () => {
+    db.query("SELECT * FROM department", (err, result) => {
+      console.table(result);
+    });
+    // init()
+  };
+
+  function exit() {
+    process.exit();
 }
 
 init()
