@@ -1,8 +1,11 @@
+-- allows fresh database to created for testing purposes
 DROP DATABASE IF EXISTS employees_db;
 CREATE DATABASE employees_db;
 
+-- tells mysql what database to use for queries
 USE employees_db
 
+-- creates 3 tables for department, role, and employees. 
 CREATE TABLE department (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     department_name VARCHAR(30)

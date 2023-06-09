@@ -1,7 +1,9 @@
+// Imports required packages
 const inquirer = require('inquirer')
 const mysql = require('mysql2')
 const consoleTable = require('console.table')
 
+// create connection to mysql
 const db = mysql.createConnection(
     {
         host: 'localhost',
@@ -15,6 +17,7 @@ const db = mysql.createConnection(
     console.log ('Connected to the employees_db database')
 );
 
+// main function which runs core application
 function init() {
     inquirer.prompt ({
         type: "list",
@@ -60,13 +63,14 @@ function init() {
     });
 }
 
+// following functions allow users to see data or update data. 
 viewAllDepartments = () => {
     db.query("SELECT * FROM department", (err, result) => {
       console.table(result);
     });
   };
 
-  let viewAllRoles = () => {
+viewAllRoles = () => {
     db.query(
       "SELECT department.*, role.*, role.id AS role_id FROM role INNER JOIN department on role.department_id = department.id",
       (err, result) => {
@@ -75,7 +79,7 @@ viewAllDepartments = () => {
     );
   };
   
-  let viewAllEmployees = () => {
+viewAllEmployees = () => {
     db.query(
       `SELECT e.id AS "Employee ID", 
     e.first_name AS "First Name",
@@ -209,4 +213,5 @@ function exit() {
     process.exit();
 }
 
+// calls function to start application
 init()
