@@ -64,7 +64,6 @@ viewAllDepartments = () => {
     db.query("SELECT * FROM department", (err, result) => {
       console.table(result);
     });
-    init()
   };
 
   let viewAllRoles = () => {
