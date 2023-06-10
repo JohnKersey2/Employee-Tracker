@@ -78,26 +78,17 @@ viewAllRoles = () => {
       }
     );
   };
-  
-viewAllEmployees = () => {
-    db.query(
-      `SELECT e.id AS "Employee ID", 
-    e.first_name AS "First Name",
-    e.last_name AS "Last Name",
-    role.title AS "Role Title",
-    department.name AS "Department",
-    role.salary AS "Salary",
-    CONCAT(m.first_name, ' ', m.last_name) AS "Manager Name"
-    FROM employee e
-    LEFT JOIN role ON e.role_id = role.id
-    LEFT JOIN employee m ON m.id = e.manager_id
-    LEFT JOIN department ON role.department_id = department.id
-  `,
-      (err, result) => {
-        console.table(result);
-      }
-    );
-  };
+
+function viewAllEmployees() {
+  db.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;", 
+  function (error, results) {
+    if (error) {
+      console.info(error)
+    }
+    console.table(results);
+  })
+  //init();
+}
   
 addDepartment = async () => {
     const departmentquestions = {
@@ -109,7 +100,7 @@ addDepartment = async () => {
     let answer = await inquirer.prompt(departmentquestions);
     let departmentname = answer.name;
     db.query(
-      "INSERT INTO department (name) VALUES (?)",
+      "INSERT INTO department (department_name) VALUES (?)",
       [departmentname],
       (err, result) => {
         console.log("department added");

@@ -8,7 +8,7 @@ For this project, I was to create a MySQL database a user could query to search 
 
 ## Video Demo
 
-TBA
+<https://drive.google.com/file/d/1qEUFzjdV93L04KQgiYkOlNgpUW7aPACy/view>
 
 ## Criteria 
 
